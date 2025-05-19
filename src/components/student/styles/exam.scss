@@ -1,0 +1,309 @@
+.exam-wrapper{
+    height:100vh;
+    background: white;
+}
+.exam {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f0f0; // Light grey background to match the UI.
+button{
+    background-color: red;
+    color: whitesmoke;
+}
+.prev-btn,.next-btn{
+    background: rgb(0, 0, 0);
+    border: none;
+    padding: 10px 10px;
+    margin: auto 6px;
+    font-family: 'Mulish',sans-serif;
+    border-radius: 5px;
+    font-weight: 500;
+    text-transform: capitalize;
+    font-size: 19px;
+    cursor: pointer;
+    &:hover{  
+        background: rgb(0, 2, 27);
+    }
+}
+    .calcImg{
+        width: 50px; height: 50px;cursor: pointer;
+    }
+
+.calculatorDisplay{
+    // background-color: red;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100vh;
+    overflow: hidden;
+    transition: .3s ease-in-out;
+}
+
+.showCalcNow{
+    transition: .3s ease-in-out;
+    width: 500px;
+}
+
+    .name{
+        text-transform: capitalize;
+        // background-color: #878b86;
+        // border-bottom: 1px solid rgb(0, 0, 0);
+        padding: 5px 10px;
+        font-size: 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        .img {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(128, 128, 128, 0.1);
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #e1e1e1;
+  
+            svg {
+              width: 100%;
+              height: 100%;
+            }
+  
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              object-position: center;
+            }
+          }
+    }
+
+    header {
+        background-color: #111c79; // Green header similar to the UI.
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 500;
+
+            .timer {
+                font-size: 1.2rem;
+                background-color: #12865a;
+                padding: 5px 10px;
+                border-radius: 5px;
+
+                &.warning {
+                    background-color: #c20a0a; // Red background for warning timer.
+                }
+            }
+            .submit {
+                background-color: #12865a; // Red submit button.
+                color: white;
+                border: none;
+                padding: 5px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 1.2rem;
+
+                &:hover {
+                    background-color: #764665; // Darker red on hover.
+                }
+            }
+
+        }
+
+        .bottom-header {
+            margin-top: 10px;
+            display: flex;
+            // justify-content: space-between;
+            // gap: 12rem;
+            align-items: center;
+
+            p {
+                margin: 0;
+                font-weight: 500;
+                font-size: 1.4rem;
+                // letter-spacing: 1px;
+            }
+
+            .subjests-warapper {
+                display: flex;
+                gap: 10px;
+                // background-color: red;
+                // place-self: center;
+                margin: 0 auto;
+                .subjects {
+                    padding: 8px 15px;
+                    background-color: whitesmoke;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    text-align: center;
+                    color: #000;
+                    text-transform: capitalize;
+                    &:hover{
+                        // background-color: lightblue;
+                        background-color: #1d661f; // Red for the active subject.
+                        color: white;
+                    }
+                    &.completed {
+                        background-color: #12865a;
+                        color: white;
+                        &:hover{
+                            // background-color: lightblue;
+                            background-color: rgb(0, 76, 255); // Red for the active subject.
+                            color: white;
+                        }
+                    }
+                    &.active {
+                        // background-color: #1d661f; // Red for the active subject.
+                        transform: translate(0,0);
+                        background-color: red;
+                        color: white;
+                        // color: #000;
+                    }
+                }
+            }
+        }
+    }
+
+    section {
+        flex-grow: 1;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .question {
+            background-color: white;
+            border-radius: 10px;
+            padding: 10px 20px;
+            width: 100%;
+            // max-width: 800px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+            h3 {
+                margin-bottom: 20px;
+                font-size: 1.5rem;
+                color: #333;
+            }
+
+            .main {
+                p {
+                    font-size: 1.2rem;
+                    color: #555;
+                }
+
+                .image-container {
+                    margin-top: 20px;
+                    text-align: center;
+                    width: 400px;
+                    height: 250px;
+                    margin: 15px auto;
+                    position:relative;
+                    // border: 2px solid red;
+                    img {
+                        position: absolute;
+                        max-width: 100%;
+                        width: 100%;                      
+                        height: 100%;
+                        object-position: center;
+                        inset: 0;
+                        object-fit: contain;
+                        border-radius: 10px;
+                        max-width: 100%;
+                        // height: auto; /* Maintain aspect ratio */
+                        object-fit: contain; /* Ensure the image is fully contained within the container */
+                        border-radius: 10px;
+                    }
+                }
+
+                .options {
+                    margin-top: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    label {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+
+                        input[type="radio"] {
+                            cursor: pointer;
+                        }
+
+                        span {
+                            font-size: 1.1rem;
+                            color: #444;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    footer {
+        background-color: white;
+        padding: 10px 0;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+
+        .questions-list {
+            // display: flex;
+            // justify-content: center;
+            // flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 10% auto 10%;
+            gap: 5px;
+            .question-item-div{
+                place-content: center;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 7px;
+            }
+            .question-item {
+                background-color: rgb(221, 221, 221);
+                border-radius: 5px;
+                padding: 5px 20px;
+                cursor: pointer;
+                font-weight: bold;
+
+                &.answered {
+                    background-color: #1d661f; // Green for answered question.
+                    color: white;
+                    &:hover{
+                        // background-color: lightblue;
+                        background-color: rgb(0, 76, 255); // Red for the active subject.
+                        color: rgb(255, 255, 255);
+                    }
+                }
+                &.active {
+                    transform: translate(0,0);
+                    background-color: red; // Green for active question.
+                    color: white;
+                }
+                &:hover{
+                    // background-color: lightblue;
+                    background-color: #1d661f; // Red for the active subject.
+                    color: white;
+                }
+
+                span {
+                    display: block;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+}
+
+
+  

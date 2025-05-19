@@ -1,0 +1,210 @@
+.nav {
+  background: rgb(17, 54, 65);
+  display: flex;
+  place-content: space-between;
+  padding: 4px 16px;
+  align-items: center;
+position: sticky;
+top: 0;
+z-index: 9999;
+.nameControl{
+  // background-color: blue;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  // z-index: 999;
+  .list{
+    display: none;
+    background-color: whitesmoke;
+    padding: 7px 12px 1px 12px;
+    font-weight: 700;
+    border-radius: 6px;
+  }
+}
+p{
+  color: whitesmoke;
+  font-weight:500;
+  font-size: 1.5rem;
+  font-family: "Mulish", sans-serif;
+}
+.logcontrol{
+  display: flex;
+  align-items: center;
+  span{
+    color: whitesmoke;
+    display: none;
+  }
+  button {
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    place-content: center;
+    background: white;
+    border: 1px solid rgb(128, 128, 128);
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 500;
+    gap: 1rem;
+    
+    &:hover {
+      background: rgba(98, 18, 61, 0.227);
+      transition: ease-in-out .3s;
+      color: whitesmoke;
+    }
+    }
+  }
+
+  img{
+    width: 50px;
+    height: 50px;
+    object-position: center;
+    border-radius: 50%;
+  }
+
+  @media (max-width:760px){
+    .nameControl{
+      .list{
+        display: block;
+      }
+    } 
+    .logcontrol{
+      span{
+        display: block;
+      }
+      button{
+        display: none;
+      }
+    } 
+  }
+
+  .asideN {
+    position: fixed;
+    bottom: 0;      // stick to bottom
+    left: 0;        // stick to left
+    width: 0%;     // width of sidebar
+    height: 94vh;   // height, adjust as needed
+    background: #113641;
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1000;
+    overflow-x: hidden;
+    display: none;
+
+  
+    // Initially hide sidebar by moving it down and left (off-screen)
+    transform: translate(-100%, 100%);
+    transition: transform 0.3s ease-in-out;
+  
+    &.showSidebar {
+      // When active, bring sidebar back into view (no translation)
+      display: block;
+      width: 80%;
+      transform: translate(0, 0);
+    }
+  
+    .asideLogouts{
+      display: flex;
+      padding: 8px 12px;
+      border-radius: 5px;
+      align-items: center;
+      place-content: center;
+      gap: 5px;
+      background-color: #ffe6e6;
+      border: 1px solid red;
+      color: red;
+      font-size: 17px;
+      width: fit-content;
+    }
+
+  
+    .closeBtWrap {
+      text-align: right;
+      .closeAside {
+        width: fit-content;
+        font-size: 1.3rem;
+        padding: 3px 12px;
+        font-weight: 600;
+        border-radius: 4px;
+        &:hover {
+          background-color: red;
+          color: white;
+        }
+      }
+    }
+  
+    .aside-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+  
+    a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.6rem 1rem;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      background: transparent;
+      box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.671);
+  
+      svg {
+        min-width: 20px;
+      }
+  
+      &:hover {
+        background: #8b0000;
+        transform: translateX(10px);
+      }
+  
+      &.active {
+        background: #dc143c;
+        transform: translateX(10px);
+      }
+    }
+  
+    footer {
+      color: #a7a7a7;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+  
+      a {
+        color: #a7a7a7;
+        text-decoration: underline;
+  
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+  
+  /* For desktop, adjust sidebar to be static and visible */
+  @media (min-width: 760px) {
+    .asideN {
+      width: 80%;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      transform: none !important; // no transform on desktop
+      background: none;
+    }
+    .aside-links {
+      position: static;
+      transform: none;
+      transition: none;
+    }
+  }
+  
+}
+
+/* keep old desktop sidebar visible ≥760 px */

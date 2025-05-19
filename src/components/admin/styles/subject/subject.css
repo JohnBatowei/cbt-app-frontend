@@ -1,0 +1,27 @@
+.subject .container {
+  display: flex;
+  gap: 7rem;
+}
+.subject .container form {
+  line-height: 2em;
+  padding: 9px 26px;
+  font-size: 17px;
+}
+.subject .container form input, .subject .container form button {
+  font-size: 17px;
+  padding: 3px 10px;
+}
+.subject .container form input {
+  border: 1px solid navy;
+  border-radius: 4px;
+}
+.subject .container form input:focus {
+  outline: none;
+}
+.subject .container form button {
+  cursor: pointer;
+}
+.subject .container form .fm {
+  display: flex;
+  gap: 6px;
+}/*# sourceMappingURL=subject.css.map */

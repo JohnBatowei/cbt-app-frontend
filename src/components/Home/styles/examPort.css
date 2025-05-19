@@ -1,0 +1,63 @@
+.ExamPortal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+}
+.ExamPortal form {
+  margin-top: 1.5cm;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  gap: 1.3em;
+  border-radius: 5px;
+  padding: 3em 2em;
+  background: rgba(0, 0, 0, 0.0784313725);
+}
+.ExamPortal form button, .ExamPortal form input {
+  font-size: 19px;
+  padding: 9px 4px;
+}
+.ExamPortal form input {
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+.ExamPortal form input:focus {
+  outline: none;
+}
+.ExamPortal form button {
+  background: rgb(3, 69, 3);
+  border: none;
+  font-weight: 500;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.ExamPortal form button:hover {
+  background: rgb(76, 173, 76);
+}
+.ExamPortal a {
+  padding: 6px 30px;
+  text-decoration: none;
+  color: black;
+  font-weight: 550;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  border-radius: 5px;
+  transition: ease-in-out 3s;
+  border: 1px solid grey;
+}
+.ExamPortal a:hover {
+  transition: ease-in-out 3s;
+}
+
+#error {
+  color: white;
+  background: rgb(154, 7, 7);
+  border: 1px solid red;
+  padding: 6px 5px;
+  border-radius: 3px;
+  margin-top: -1em;
+}/*# sourceMappingURL=examPort.css.map */

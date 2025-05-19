@@ -1,0 +1,102 @@
+.create-class {
+  display: flex;
+  place-content: space-between;
+}
+.create-class form {
+  font-size: 17px;
+  line-height: 2em;
+  padding: 9px 26px;
+}
+.create-class form input, .create-class form button {
+  font-size: 17px;
+  padding: 3px 10px;
+}
+.create-class form input {
+  border: 1px solid navy;
+  border-radius: 4px;
+}
+.create-class form input:focus {
+  outline: none;
+}
+.create-class form button {
+  cursor: pointer;
+}
+.create-class form .container {
+  display: flex;
+  gap: 6px;
+}
+.create-class .table-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 20px 0 0;
+}
+.create-class .table-search .search-input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  max-width: 100%;
+}
+.create-class .table-search .table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.create-class .table-search .table th,
+.create-class .table-search .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.create-class .table-search .table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.create-class .table-search .table td:first-child {
+  font-weight: bold;
+}
+.create-class .table-search .table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.create-class .table-search .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.create-class .table-search .pagination .page-info {
+  margin-right: 20px;
+}
+.create-class .table-search .pagination .button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.create-class .table-search .pagination .button-group button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #000;
+  transition: all 0.2s ease-in-out;
+}
+.create-class .table-search .pagination .button-group button:hover {
+  background-color: #000;
+  color: #fff;
+}
+.create-class .table-search .pagination .button-group button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.create-class .table-search .pagination .button-group .prev-button:hover {
+  transform: translateX(-5px);
+}
+.create-class .table-search .pagination .button-group .next-button:hover {
+  transform: translateX(5px);
+}/*# sourceMappingURL=createClass.css.map */

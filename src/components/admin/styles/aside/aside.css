@@ -1,0 +1,36 @@
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgb(51, 50, 50);
+  padding: 2em 1em 3em 0.5em;
+  margin-right: 2em;
+  max-width: 200px;
+  width: 100%;
+  float: left;
+  height: 98vh;
+  position: sticky;
+  top: 0;
+}
+.aside footer {
+  color: rgb(195, 175, 162);
+  margin-top: 3em;
+  font-size: 17px;
+  font-weight: 500;
+  box-shadow: 4px 3px 3px rgb(130, 117, 105);
+}
+.aside a {
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  border: 1px solid white;
+  display: flex;
+  padding: 5px 25px 5px 5px;
+}
+.aside a:hover {
+  background: rgb(205, 43, 43);
+}
+
+.active {
+  background: rgb(205, 43, 43);
+}/*# sourceMappingURL=aside.css.map */

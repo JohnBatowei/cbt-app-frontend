@@ -1,0 +1,29 @@
+.nav {
+  background: rgb(239, 239, 239);
+  display: flex;
+  place-content: space-between;
+  padding: 6px 16px;
+  align-items: center;
+}
+.nav button {
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  place-content: center;
+  background: white;
+  border: 1px solid grey;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.nav button:hover {
+  background: rgba(98, 18, 61, 0.227);
+  transition: ease-in-out 0.3s;
+}
+.nav img {
+  width: 50px;
+  height: 50px;
+  -o-object-position: center;
+     object-position: center;
+  border-radius: 50%;
+}/*# sourceMappingURL=nav.css.map */

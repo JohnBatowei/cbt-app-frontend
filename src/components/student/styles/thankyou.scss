@@ -1,0 +1,73 @@
+.thank-you-wrapper {
+  height:100vh;
+  background: white;
+}
+.thank-you {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: silver;
+    font-family: 'Mulish', sans-serif;
+  
+    .congrat {
+      background-color: #ffffff;
+      padding: 50px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 450px;
+      width: 100%;
+      color: #333;
+  
+      h1 {
+        font-size: 2.8rem;
+        color: #378b39;
+        margin-bottom: 15px;
+        text-transform: capitalize;
+  
+        &::before {
+          content: "🎉 ";
+        }
+  
+        &::after {
+          content: " 🎉";
+        }
+      }
+  
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        
+        &:first-of-type {
+          margin-bottom: 10px;
+          font-weight: bold;
+        }
+  
+        &:last-of-type {
+          font-size: 1rem;
+          color: #888;
+        }
+      }
+  
+      a {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 12px 25px;
+        background-color: #ff1e00;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 500;
+        border-radius: 25px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+  
+        &:hover {
+          background-color: #a40707;
+          transform: translateY(-3px);
+        }
+      }
+    }
+  }
+  

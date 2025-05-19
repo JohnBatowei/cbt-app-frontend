@@ -1,0 +1,37 @@
+// body{
+//   background: rgb(17, 54, 65);
+// }
+.admin {
+  main {
+    // margin: 1em 9px 0.3em 14em;
+    
+    height: 100vh;
+    // overflow: hidden;
+    display: flex;
+    gap: 3em;
+    #adf {
+      // text-decoration: none;
+      background-color: red;
+      display: flex;
+      align-items: center;
+      // border: 1px solid rgb(219, 219, 219);
+      padding: 10px 35px;
+      font-size: 1.5em;
+      border-radius: 5px;
+      position: relative;
+      &:hover{
+        background: rgb(222, 222, 222);
+      }
+      li{
+        list-style-type: none;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 12px;
+      }
+    }
+  }
+}
+// main {
+//   margin: 1em 9px 0.3em 14em;
+// }

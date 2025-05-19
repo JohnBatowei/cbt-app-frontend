@@ -1,0 +1,118 @@
+// seeResult.scss
+
+.see-result-wrapper {
+  height:100vh;
+  background: white;
+}
+.see-result {
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    background-color: rgb(17, 54, 65); // Light gray background
+    min-height: 100vh;
+  
+    .resultWrapper {
+      width: 100%;
+      max-width: 900px; // Wider container
+      background-color: rgb(17, 54, 65); // White background for the card
+      border-radius: 8px;
+      // box-shadow: 0 4px 8px rgb(0, 0, 0); // Subtle shadow
+      padding: 2rem;
+      margin: 1rem;
+  
+      .title {
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+        color: #e6eff8; // Darker text color for contrast
+        text-align: center;
+        font-weight: 500; // Bold title
+      }
+  
+      .resultContent {
+        display: flex;
+        flex-direction: column;
+      }
+  
+      .info {
+        margin-bottom: 2rem;
+        
+        .infoItem {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.5rem 0;
+          border-bottom: 1px solid #ddd; // Light gray border
+          align-items: center;
+          .label {
+            font-weight: 600;
+            color: #f0f8fa;
+            font-size: 1.1rem; // Smaller label font size
+          }
+  
+          .value {
+            font-size: 1.2rem;
+            color: #f0f8fa; // Slightly lighter text color
+            font-weight: 500;
+          }
+        }
+      }
+  
+      .subjects {
+        .subjectHeader, .subjectRow {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.75rem;
+          color: whitesmoke;
+          border-bottom: 1px solid #ddd; // Light gray border
+        }
+  
+        .subjectHeader {
+          background-color: #153a5c; // Blue header background
+          color: #ffffff; // White text
+          font-weight: 500; // Bold header text
+          border-radius: 2px;
+          font-size: 1.2rem;
+        }
+  
+        .totalScore {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.75rem;
+          font-weight: 700; // Bold total score text
+          background-color: #ffffff; // Light gray background
+          border-radius: 2px;
+        }
+      }
+  
+      a {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 12px 25px;
+        background-color: #d14200;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 500;
+        border-radius: 25px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+  
+        &:hover {
+          background-color: #a40707;
+          transform: translateY(-3px);
+        }
+      }
+  
+      .loading, .error {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #333;
+      }
+  
+      .error {
+        color: #dc3545; // Bootstrap error color
+      }
+    }
+
+    // color: whitesmoke;
+  }
+  

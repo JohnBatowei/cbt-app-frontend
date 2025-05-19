@@ -1,0 +1,136 @@
+$blue: rgb(130, 130, 203);
+$primary-bg: #1e1e2f;
+$accent: #3b82f6;
+$success: #10b981;
+$white: #ffffff;
+
+.ExamPortal {
+  position: relative;
+  min-height: 100vh;
+  padding: 2em 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $primary-bg;
+  color: $white;
+  font-family: 'Poppins', sans-serif;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: whitesmoke;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5em;
+    text-align: center;
+  }
+
+  form {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.1);
+    border-radius: 1rem;
+    padding: 2.5em 2em;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+
+    input {
+      font-size: 1.1rem;
+      padding: 0.9em 1em;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: $white;
+      transition: all 0.3s ease;
+
+      &::placeholder {
+        color: #bbb;
+      }
+
+      &:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.08);
+        border-color: $accent;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      }
+    }
+
+    button {
+      padding: 0.85em;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: rgb(41, 156, 87);
+      border: none;
+      color: $white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        // box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        background: green;
+      }
+    }
+  }
+
+  a {
+    margin-top: 1.5em;
+    text-decoration: none;
+    color: $white;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.6em 1.2em;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+  }
+}
+
+#error {
+  background: rgba(220, 38, 38, 0.15);
+  color: #f87171;
+  border: 1px solid #dc2626;
+  border-radius: 6px;
+  padding: 0.6em;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Responsive Enhancements */
+@media screen and (max-width: 600px) {
+  .ExamPortal {
+    gap: 1.5em;
+
+    form {
+      width: 100%;
+      padding: 1.5em 1em;
+
+      button,
+      input {
+        font-size: 1rem;
+        padding: 10px 8px;
+      }
+    }
+
+    h1 {
+      font-size: 2rem !important;
+      text-align: center;
+    }
+
+    a {
+      font-size: 0.95rem;
+      padding: 6px 16px;
+    }
+  }
+}

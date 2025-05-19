@@ -1,0 +1,398 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { useAuthContextStudent } from "../../hooks/useAuthStudentCon";
+import axios from './Axios';
+import axiosSt from '../Home/StudentAxios'
+import Calculator from '../calc/components/Calculator';
+import './styles/exam.scss';
+import calcImg from '../assets/calc.png';
+import { useHistory } from 'react-router-dom';
+// import debounce from "lodash.debounce";
+
+
+const Exam = () => {
+    const { student } = useAuthContextStudent();
+    const [activeSubjectIndex, setActiveSubjectIndex] = useState(0);
+    const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
+    const [selectedOption, setSelectedOption] = useState({});
+    const [timeLeft, setTimeLeft] = useState(0);
+    // const [timerId, setTimerId] = useState(null);
+    const timerIdRef = useRef(null);
+    const [calc, setCalc] = useState(false);
+    const submissionInProgress = useRef(false); // To prevent double submission
+    const selectedOptionRef = useRef({}); // To hold selected options across renders
+    const saveIntervalRef = useRef(null);
+
+    const history = useHistory();
+    
+
+    const showCalculator = () => {
+        setCalc(prevCalc => !prevCalc);
+    };
+
+    const [resultConfirmation,setResultConfirmation] = useState('no')
+
+const getResultConfirmation = async () => {
+  try {
+    // const res = await axios.get('http://localhost:3800/headings', {
+    const res = await axiosSt.get('/headings', {
+      headers: { 'Content-Type':'application/json' },
+    });
+
+    if (res.status === 200 && res.data.data) {
+      const headingData = res.data.data.find((data) => data.deff === 'confirmation');
+      // console.log(headingData);
+
+      // Update heading regardless of confirmation status
+      if (headingData) {
+        setResultConfirmation(headingData.confirmation || 'no');
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching headings:', error);
+    setResultConfirmation('Coordinators Portal');
+  }
+};
+
+
+useEffect(() => {
+  getResultConfirmation();
+}, []);
+
+    const handleSubmit = async () => {
+        // if (timerId) {
+        //     clearInterval(timerId); // Clear the timer when submitting
+        // }
+
+        if (submissionInProgress.current) {
+            return; // Prevent double submission
+        }
+        submissionInProgress.current = true;
+
+        const subjectsData = student?.message?.subject?.map(subject => {
+            const questionsData = subject?.questions.map(question => ({
+                questionId: question._id,
+                selectedOption: selectedOptionRef.current[question._id] || '',
+                correctAnswer: question.answer
+            }));
+            return {
+                subjectId: subject._id,
+                subjectName: subject.name,
+                questions: questionsData
+            };
+        });
+
+        const dataToSend = {
+            classId: student?.message?.classId,
+            className: student?.message?.className,
+            candidateName: student?.message?.candidateName,
+            profileCode: student?.message?.profileCode,
+            studentId: student?.message?._id,
+            subjects: subjectsData
+        };
+
+        // console.log(dataToSend);
+        try {
+            const response = await axios.post('/mark-questions', dataToSend, {
+                withCredentials: true
+            });
+            if (response.status === 200) {
+                // Handle successful submission
+                localStorage.removeItem('examState'); // Clear local storage
+                localStorage.removeItem('student')
+                if(resultConfirmation !== 'yes'){
+                    history.push('/thankyou')
+                }else{
+                    console.log(response.data)
+                    history.push('/student-results/'+response.data.markedResult)
+                }
+            }
+        } catch (error) {
+            console.error('Error submitting answers', error);
+        } finally {
+            submissionInProgress.current = false; // Reset after submission
+        }
+    }
+
+
+
+    useEffect(() => {
+        if (!student?.message) {
+            console.log('Student message not available');
+            return;
+        }
+    
+        const initialTimer = parseInt(student.message.timer, 10) * 60;
+    
+        const storedState = JSON.parse(localStorage.getItem('examState'));
+        console.log(storedState)
+        console.log(student.message)
+
+        if (storedState && storedState.timeLeft > 0) {
+            setTimeLeft(storedState.timeLeft);
+            setSelectedOption(storedState.selectedOption);
+            setActiveSubjectIndex(storedState.activeSubjectIndex);
+            setActiveQuestionIndex(storedState.activeQuestionIndex);
+            selectedOptionRef.current = storedState.selectedOption;
+        } else {
+            setTimeLeft(initialTimer);
+        }
+    
+        const id = setInterval(() => {
+            setTimeLeft(prevTime => {
+                if (prevTime <= 0) {
+                    clearInterval(id);
+                    handleSubmit(); // Automatically submit when time is up
+                    return 0;
+                }
+                return prevTime - 1;
+            });
+        }, 1000);
+    
+        // Store the interval ID in a ref
+        timerIdRef.current = id;
+    
+        return () => {
+            clearInterval(timerIdRef.current); // Cleanup on component unmount
+        };
+    }, [student]);
+
+
+// console.log(selectedOption)
+    
+    useEffect(() => {
+        // Function to save progress every 2 minutes
+        const saveExamProgress = async () => {
+            if (!student?.message) return;
+    
+                // When active question changes, check if there is an answered option from server
+
+            const subjectsData = student?.message?.subject?.map(subject => {
+                const questionsData = subject?.questions.map(question => ({
+                    questionId: question._id,
+                    selectedOption: selectedOptionRef.current[question._id] || '',
+                    correctAnswer: question.answer
+                }));
+                return {
+                    subjectId: subject._id,
+                    subjectName: subject.name,
+                    questions: questionsData
+                };
+            });
+    
+            // console.log(subjectsData.questionId, subjectsData.selectedOption)
+            const dataToSend = {
+                classId: student?.message?.classId,
+                className: student?.message?.className,
+                candidateName: student?.message?.candidateName,
+                profileCode: student?.message?.profileCode,
+                studentId: student?.message?._id,
+                subjects: subjectsData,
+                timer: parseInt(timeLeft/60) // Add timer to be sent to backend
+            };
+            // console.log(dataToSend.timer)
+            try {
+                await axios.post('/save-exam-instances', dataToSend, {
+                    withCredentials: true
+                });
+            } catch (error) {
+                console.error('Error saving exam progress', error);
+            }
+        };
+    
+        saveIntervalRef.current = setInterval(saveExamProgress, 1000); // Save every 1 minutes
+        return () => clearInterval(saveIntervalRef.current);
+      }, [timeLeft, selectedOption]);
+    
+
+
+
+    useEffect(() => {
+        localStorage.setItem('examState', JSON.stringify({
+            timeLeft,
+            selectedOption: selectedOptionRef.current,
+            activeSubjectIndex,
+            activeQuestionIndex
+        }));
+    }, [timeLeft, activeSubjectIndex, activeQuestionIndex]);
+    
+
+
+    const handleSubjectClick = (index) => {
+        setActiveSubjectIndex(index);
+        setActiveQuestionIndex(0);
+    };
+
+
+
+    const handleQuestionClick = (index) => {
+        setActiveQuestionIndex(index);
+        setSelectedOption(prev => ({
+            ...prev,
+            [activeSubject?.questions[index]?._id]: prev[activeSubject?.questions[index]?._id] || ''
+        }));
+    };
+
+
+
+    const handleOptionChange = (event) => {
+        setSelectedOption(prev => ({
+            ...prev,
+            [activeSubject?.questions[activeQuestionIndex]?._id]: event.target.value
+        }));
+        selectedOptionRef.current = {
+            ...selectedOptionRef.current,
+            [activeSubject?.questions[activeQuestionIndex]?._id]: event.target.value
+        };
+    };
+    // const handleOptionChange = (event) => {
+    //     setSelectedOption(prev => ({
+    //         ...prev,
+    //         [activeQuestion?._id]: event.target.value
+    //     }));
+    //     selectedOptionRef.current = {
+    //         ...selectedOptionRef.current,
+    //         [activeQuestion?._id]: event.target.value
+    //     };
+    // };
+    
+
+
+    const formatTime = (seconds) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    };
+
+
+    if (!student?.message) {
+        return <div style={{color: 'whitesmoke',margin:'4rem 8rem', fontSize:'2rem'}}>Loading...</div>;
+    }
+
+
+
+    const activeSubject = student?.message?.subject[activeSubjectIndex];
+    const activeQuestion = activeSubject?.questions[activeQuestionIndex];
+
+
+
+    return (
+        <div className="exam-wrapper">
+        <div className="exam">
+            <header>
+                <div className="top-header">
+                    <span className={`timer ${timeLeft <= 60 ? 'warning' : ''}`}>
+                        Time: {formatTime(timeLeft)}
+                    </span>
+                    <span className='name'>name : {student?.message?.candidateName}</span>
+                    <span className='calcImg' onClick={showCalculator}><img src={calcImg} alt="" className='calcImg' /></span>
+                    <div className={`calculatorDisplay ${calc === true ? 'showCalcNow' : ''}`}>
+                        {calc && <Calculator />}
+                    </div>
+                    <button onClick={handleSubmit} className='submit'>Submit</button>
+                </div>
+
+                <div className="bottom-header">
+                    <p>Profile Code : {student?.message?.profileCode}</p>
+
+                    <div className='subjests-warapper'>
+                        {student?.message?.subject?.length > 0 ? (
+                            student.message.subject.map((item, index) => (
+                                <div
+                                    key={item._id || index}
+                                    className={`subjects ${index === activeSubjectIndex ? 'active' : ''}`}
+                                    onClick={() => handleSubjectClick(index)}
+                                >
+                                    <span>{item.name}</span>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No subjects available</p>
+                        )}
+                    </div>
+                </div>
+            </header>
+
+            <section>
+                {activeSubject ? (
+                    <div className="question">
+                        <h3>Question {activeQuestionIndex + 1}</h3>
+                        <div className="main">
+                            <p>{activeQuestion?.question || 'No question available'}</p>
+
+                            {activeQuestion?.image && (
+                                <div className="image-container">
+                                    {/* {console.log(activeQuestion.image)} */}
+                                    <img crossOrigin="anonymous" src={`${activeQuestion.image}`} alt="Question diagram" />
+                                </div>
+                            )}
+
+                            <div className="options">
+                                {activeQuestion ? (
+                                    <>
+                                        <label>
+                                            <span>A </span>
+                                            <input
+                                                type="radio"
+                                                name={`question-${activeQuestion._id}`}
+                                                value="a"
+                                                checked={selectedOption[activeQuestion._id] === 'a'}
+                                                onChange={handleOptionChange}
+                                            />
+                                            <span>{activeQuestion.option_A}</span>
+                                        </label>
+                                        <label>
+                                            <span>B </span>
+                                            <input
+                                                type="radio"
+                                                name={`question-${activeQuestion._id}`}
+                                                value="b"
+                                                checked={selectedOption[activeQuestion._id] === 'b'}
+                                                onChange={handleOptionChange}
+                                            />
+                                            <span> {activeQuestion.option_B}</span>
+                                        </label>
+                                        <label>
+                                            <span>C </span>
+                                            <input
+                                                type="radio"
+                                                name={`question-${activeQuestion._id}`}
+                                                value="c"
+                                                checked={selectedOption[activeQuestion._id] === 'c'}
+                                                onChange={handleOptionChange}
+                                            />
+                                            <span>{activeQuestion.option_C}</span>
+                                        </label>
+                                    </>
+                                ) : (
+                                    <p>No options available</p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <p>No subject selected</p>
+                )}
+            </section>
+
+            <footer>
+                <div className="questions-list">
+                    {activeSubject?.questions.map((_, index) => {
+                        const isAnswered = selectedOption[activeSubject.questions[index]?._id];
+                        return (
+                            <div
+                                key={index}
+                                className={`question-item ${index === activeQuestionIndex ? 'active' : ''} ${isAnswered ? 'answered' : ''}`}
+                                onClick={() => handleQuestionClick(index)}
+                            >
+                                <span>{index + 1}</span>
+                            </div>
+                        );
+                    })}
+                </div>
+            </footer>
+        </div>
+        </div>
+    );
+};
+
+export default Exam;

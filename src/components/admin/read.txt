@@ -1,0 +1,2 @@
+storeDesc is subject name in the subject components
+candidate is student

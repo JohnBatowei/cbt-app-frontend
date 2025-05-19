@@ -1,0 +1,9 @@
+.can-check-result{
+    a{
+        color: rgb(253, 91, 31);
+        &:hover{
+            color: rgb(247, 66, 0);
+        }
+    }
+    // background: green;
+}

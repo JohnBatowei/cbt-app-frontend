@@ -1,0 +1,41 @@
+.subject{
+    .container{
+        display: flex;
+        gap: 7rem;
+        
+        form{
+            line-height: 2em;
+            // background-color: silver;
+            padding: 9px 26px;
+            font-size: 17px;
+            input,button{
+                font-size: 17px;
+                // border: none;
+                padding: 3px 10px;
+            }
+            input{
+                border: 1px solid navy;
+                border-radius: 4px;
+                &:focus{
+                    outline: none;
+                }
+            }
+            button{
+                // border: none;
+                // background: rgb(205, 43, 43);
+                // color: white;
+                cursor: pointer;
+                // border-radius: 4px;
+                // padding: 4px 10px;
+            }
+    
+            .fm{
+                display: flex;
+                gap: 6px;
+            }
+        }
+    }
+
+    
+}
+

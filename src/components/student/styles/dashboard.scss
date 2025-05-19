@@ -1,0 +1,275 @@
+// Global Styles
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Mulish', sans-serif;
+  background: rgb(17, 54, 65);
+}
+
+// Main Wrapper and Dashboard
+.dashboard-wrapper {
+  height: 100vh;
+  background: #f9f9f9;
+}
+
+.dashboard {
+  h3 {
+    color: #52299c;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .logout {
+    display: flex;
+    flex-direction: column;
+    .wrap-logout {
+      background-color: #52299c;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      padding: 10px 25px;
+      color: #f5f5f5;
+
+      span {
+        font-weight: 500;
+        color: rgba(245, 245, 245, 0.9);
+      }
+
+      background: linear-gradient(135deg, #52299c, #6e3bcf);
+      padding: 12px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(82, 41, 156, 0.3);
+      button {
+        display: flex;
+        align-items: center;
+        background: red;
+        color: #ffffff;
+        font-weight: 500;
+        padding: 12px 30px;
+        border-radius: 30px;
+        // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        &:hover {
+          background: linear-gradient(135deg, #ffd200, #f7971e);
+          transform: translateY(-2px);
+          // box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+        }
+      }
+    }
+
+    .goodluck {
+      align-self: center;
+      font-size: 2rem;
+      font-weight: 600;
+      color: rgb(0, 41, 128);
+      text-transform: capitalize;
+      padding: 15px;
+      margin-top: 1rem;
+    }
+  }
+
+  // Section Styles
+  section {
+    .sub-parent-wrapper {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 30px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      gap: 20px;
+
+      .left,
+      .mid,
+      .right {
+        flex: 1;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        background-color: #f7f7f7;
+        color: #4a4a4a;
+      }
+
+      .left {
+        .subject {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          .subjects {
+            display: flex;
+            gap: 12px;
+            font-weight: 500;
+            color: #444;
+            label,
+            span {
+              text-transform: capitalize;
+              display: block;
+            }
+
+            span {
+              color: #7a7a7a;
+            }
+          }
+        }
+      }
+
+      .mid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .mid-top {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+
+          p {
+            text-transform: capitalize;
+            font-weight: 500;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+
+            span {
+              color: #7a7a7a;
+            }
+          }
+        }
+
+        .img {
+          position: relative;
+          width: 200px;
+          height: 200px;
+          border: 3px solid rgba(128, 128, 128, 0.1);
+          border-radius: 50%;
+          overflow: hidden;
+          background-color: #e1e1e1;
+
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+          }
+        }
+
+        form {
+          margin-top: 3rem;
+
+          button {
+            background-color: green;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+              background-color: rgba(0, 128, 0, 0.8);
+            }
+          }
+        }
+      }
+
+      .right {
+        .instr {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+
+          p {
+            font-size: 1rem;
+            color: #555;
+
+            span {
+              font-weight: bold;
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Footer
+  footer {
+    background-color: rgba(213, 213, 213, 0.7);
+    text-align: center;
+    font-size: 18px;
+    padding: 2rem 0;
+    color: #333;
+  }
+
+  // Responsive Design
+  @media screen and (max-width: 768px) {
+    .sub-parent-wrapper {
+      flex-direction: column;
+      padding: 15px;
+    }
+
+    .left,
+    .mid,
+    .right {
+      margin: 0 0 20px;
+    }
+
+    .img {
+      width: 150px;
+      height: 150px;
+    }
+
+    footer {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .wrap-logout {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 15px;
+    }
+
+    .goodluck {
+      font-size: 1.5rem;
+    }
+
+    .sub-parent-wrapper {
+      padding: 10px;
+    }
+
+    .left,
+    .mid,
+    .right {
+      margin: 0 0 15px;
+      padding: 15px;
+    }
+
+    .img {
+      width: 120px;
+      height: 120px;
+    }
+
+    footer {
+      font-size: 14px;
+      padding: 1.5rem 0;
+    }
+  }
+}

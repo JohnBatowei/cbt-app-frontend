@@ -1,0 +1,256 @@
+.questions {
+  h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: #f5f5f5;
+    font-weight: 600;
+    strong{
+      color: #88ff5c;
+    }
+  }
+
+  .main {
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    // background-color: #1f2c38;
+    background-color: rgba(40, 104, 106, 0.152);
+
+    .field {
+      display: flex;
+      flex-direction: column;
+
+      .search {
+        margin-bottom: 1.5rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        
+        input {
+          padding: 0.6rem 1rem;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+          width: 100%;
+          max-width: 320px;
+          transition: border 0.2s ease-in-out;
+
+          &:focus {
+            border-color: #0073e6;
+            outline: none;
+          }
+        }
+
+        label {
+          margin-left: 0.75rem;
+          color: #e0e0e0;
+          font-weight: 500;
+          font-size: 1rem;
+        }
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+
+        thead,
+        tfoot {
+          background-color: #f0f0f0;
+
+          th {
+            padding: 1rem;
+            font-weight: 600;
+            color: #333333;
+            border-bottom: 2px solid #dcdcdc;
+            text-align: left;
+          }
+        }
+
+        tbody {
+          tr {
+            transition: background-color 0.2s ease;
+
+            &:hover {
+              background-color: rgba(40, 104, 106, 0.152);
+
+              td {
+                color: #000000;
+              }
+            }
+
+            td {
+              padding: 0.75rem 1rem;
+              border: 1px solid #e5e5e5;
+              color: #444444;
+              font-size: 0.95rem;
+            }
+          }
+        }
+      }
+
+      .pagination {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        button {
+          padding: 0.5rem 1.25rem;
+          border: none;
+          background-color: #0073e6;
+          color: #fff;
+          font-weight: 500;
+          font-size: 0.95rem;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: background-color 0.2s ease;
+
+          &:hover {
+            background-color: #005bb5;
+          }
+
+          &:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+          }
+        }
+
+        span {
+          font-size: 0.95rem;
+          color: #e0e0e0;
+        }
+      }
+    }
+  }
+}
+
+.scratch-form {
+  margin: 1.5rem 0;
+  background-color: #1b3a48;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  gap: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  input,
+  button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+
+    &:focus {
+      outline: 2px solid #66c7ff;
+    }
+  }
+
+  label {
+    color: #f0f0f0;
+    font-weight: 500;
+  }
+
+  button {
+    background-color: #88ff5c;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #3dff2f;
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
+  .questions {
+    .main {
+      padding: 1rem;
+
+      .field {
+        .search {
+          flex-direction: column;
+          align-items: stretch;
+
+          input {
+            max-width: 100%;
+            width: 100%;
+          }
+
+          label {
+            margin: 0.5rem 0 0 0;
+            font-size: 0.95rem;
+          }
+        }
+
+        table {
+          display: block;
+          overflow-x: auto;
+          width: 100%;
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          -webkit-overflow-scrolling: touch;
+
+          // Scrollbar styling
+          &::-webkit-scrollbar {
+            height: 8px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 10px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #0073e6;
+            border-radius: 10px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background: #005bb5;
+          }
+
+          thead,
+          tbody,
+          tfoot,
+          tr,
+          th,
+          td {
+            white-space: nowrap;
+          }
+        }
+
+        .pagination {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.75rem;
+
+          button {
+            width: 100%;
+          }
+
+          span {
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
+
+  .scratch-form {
+    flex-direction: column;
+    gap: 0.75rem;
+
+    input,
+    button {
+      width: 100%;
+    }
+  }
+}

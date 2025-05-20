@@ -27,6 +27,7 @@ import SeeResult from './components/student/SeeResult';
 import ScratchCard from './components/admin/ScratchCard';
 import ForOFor from './components/ForOFor';
 import './styles/App.scss'
+import ClassResultPageCorrection from './components/admin/ClassResultCorrections';
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
           <ProtectedAdminRoute path="/view-class" component={ViewClass} />
           <ProtectedAdminRoute path="/scratchcard" component={ScratchCard} />
           <ProtectedAdminRoute path="/class-results/:id/:className" component={ClassResultPage} />
+          <ProtectedAdminRoute path="/class-results-correction/:id/:className" component={ClassResultPageCorrection} />
           {/* </div> */}
 
           {/* Protected Student Route */}

@@ -1,7 +1,7 @@
 .es-message {
-  width: fit-content;
+  width: 400px;
   position: absolute;
-  z-index: 777;
+  z-index: 99999;
   top: -10rem;
   left: 30rem;
   transition: 0.3s ease-in-out;
@@ -23,8 +23,8 @@
 
   .ss {
     background-color: #e6f7e6;
-    color: #2e7d32;
-    border: 1px solid #2e7d32;
+    color: #0e4010;
+    border: 1px solid #2d9532;
   }
 
   .ee {

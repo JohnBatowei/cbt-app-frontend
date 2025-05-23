@@ -1,23 +1,9 @@
 
 
 @media (max-width:760px){
-    .aside{
+    .aside,.asideN{
       display: none;
     }
-    .aside.openAside{
-        display: block; 
-        .asideLogout{
-            display: flex;
-            padding: 4px 0;
-            border-radius: 5px;
-            align-items: center;
-            place-content: center;
-            gap: 5px;
-            background-color: #ffe6e6;
-            border: 1px solid red;
-            color: red;
-        }      
-      }
     main{
       flex-basis: 100%;
       width: 100%;

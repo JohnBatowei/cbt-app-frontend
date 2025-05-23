@@ -7,6 +7,16 @@
 position: sticky;
 top: 0;
 z-index: 9999;
+.newNameControl{
+  display: none;
+  .list{
+    display: none;
+    background-color: whitesmoke;
+    padding: 7px 12px 1px 12px;
+    font-weight: 700;
+    border-radius: 6px;
+  }
+}
 .nameControl{
   // background-color: blue;
   display: flex;
@@ -39,15 +49,15 @@ p{
     display: flex;
     align-items: center;
     place-content: center;
-    background: white;
-    border: 1px solid rgb(128, 128, 128);
-    border-radius: 3px;
+    background: rgb(252, 226, 226);
+    border: 2px solid rgb(255, 141, 141);
+    border-radius: 5px;
     cursor: pointer;
     font-weight: 500;
     gap: 1rem;
     
     &:hover {
-      background: rgba(98, 18, 61, 0.227);
+      background: rgb(98, 18, 61);
       transition: ease-in-out .3s;
       color: whitesmoke;
     }
@@ -62,7 +72,8 @@ p{
   }
 
   @media (max-width:760px){
-    .nameControl{
+    .newNameControl{
+      display: block;
       .list{
         display: block;
       }
@@ -82,21 +93,31 @@ p{
     bottom: 0;      // stick to bottom
     left: 0;        // stick to left
     width: 0%;     // width of sidebar
-    height: 94vh;   // height, adjust as needed
-    background: #113641;
-    padding: 3rem 1rem;
+    height: 100vh;   // height, adjust as needed
+    background: #ffffff;
+    padding: 1rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     z-index: 1000;
     overflow-x: hidden;
     display: none;
-
+    overflow-y: scroll;
+    overflow: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
   
     // Initially hide sidebar by moving it down and left (off-screen)
     transform: translate(-100%, 100%);
     transition: transform 0.3s ease-in-out;
   
+    .nameControl{
+      display: flex;
+      flex-direction: column;
+      p{
+        color: grey;
+      }
+    }
     &.showSidebar {
       // When active, bring sidebar back into view (no translation)
       display: block;
@@ -137,7 +158,7 @@ p{
     .aside-links {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 1px;
     }
   
     a {
@@ -145,25 +166,27 @@ p{
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      color: #ffffff;
+      color: #282727;
       font-size: 1rem;
       font-weight: 500;
       padding: 0.6rem 1rem;
       border-radius: 5px;
       transition: all 0.3s ease;
       background: transparent;
-      box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.671);
+      // box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.671);
   
       svg {
         min-width: 20px;
       }
   
       &:hover {
+        color: white;
         background: #8b0000;
         transform: translateX(10px);
       }
-  
+      
       &.active {
+        color: white;
         background: #dc143c;
         transform: translateX(10px);
       }

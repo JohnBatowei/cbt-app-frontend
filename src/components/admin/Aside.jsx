@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import {
-  Speedometer2,
+  Speedometer2,PersonBadgeFill,
   PlusSquare,
   Book,
   PatchQuestion,
@@ -12,10 +12,21 @@ import {
   Gear
 } from "react-bootstrap-icons";
 import "./styles/aside/aside.scss";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Aside = () => {
+  const { admin } = useAuthContext();
   return (
     <div className="aside">
+      {/* <div className="border"> */}
+      <div className="nameControl">
+          {admin && admin.image ? (
+        <img crossOrigin="anonymous" src={`${window.location.origin}${admin.image}`} alt="Admin Profile" />
+      ) : (
+        <PersonBadgeFill style={{ height: "90px", width: "100px" }} />
+      )}
+      </div>
+
       <div className="aside-links">
         <NavLink to="/admin" name="dashboard">
           <Speedometer2 size={20} />
@@ -71,6 +82,7 @@ const Aside = () => {
       <footer>
         Powered by <a href="https://www.aritron.com.ng" target="_blank" rel="noreferrer">www.AriTron.com.ng</a>
       </footer>
+      {/* </div> */}
     </div>
   );
 };

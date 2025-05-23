@@ -52,6 +52,12 @@
             &:hover {
               transform: translateY(-5px);
               box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+              background: rgba(19, 49, 76, 0.481);
+              border: 1px solid rgba(187, 187, 187, 0.792);
+              h1{
+
+                color: whitesmoke;
+              }
             }
   
             .svg {
@@ -79,7 +85,3 @@
 
     
   }
-
-
-
-  

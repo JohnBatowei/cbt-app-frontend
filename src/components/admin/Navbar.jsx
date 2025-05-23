@@ -17,9 +17,6 @@ const Navbar = ({ clickF }) => {
   return (
     <div className="nav">
       <div className="nameControl">
-        <span className="list" onClick={toggleSidebar}>
-          <List size={24} />
-        </span>
         <p>
           {admin.name || 'Loading...'}
           <p style={{ color: '#fdbbe9', fontSize: '10px' }}>
@@ -33,7 +30,7 @@ const Navbar = ({ clickF }) => {
           <span><HouseDoorFill size={24} /></span>
         </NavLink>
         <button onClick={clickF}>
-          Log out
+          Logout
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
             fill="currentColor" className="bi bi-power" viewBox="0 0 16 16">
             <path d="M7.5 1v7h1V1z" />
@@ -42,16 +39,36 @@ const Navbar = ({ clickF }) => {
         </button>
       </div>
 
-      {admin && admin.image ? (
+      <div className="newNameControl">
+        <span className="list" onClick={toggleSidebar}>
+          <List size={24} />
+        </span>
+      </div>
+      {/* {admin && admin.image ? (
+        <img crossOrigin="anonymous" src={`${window.location.origin}${admin.image}`} alt="Admin Profile" />
+      ) : (
+        <PersonBadgeFill style={{ height: "90px", width: "100px" }} />
+      )} */}
+
+      {/* Sidebar: mobile toggle visibility */}
+      <div className={`asideN ${showSidebar ? "showSidebar" : ""}`}>
+      <div className="closeBtWrap"><button className="closeAside" onClick={()=>{setShowSidebar(false)}}>X</button></div>
+      <div className="nameControl">
+        <p>
+          {admin.name || 'Loading...'}
+          <p style={{ color: '#fdbbe9', fontSize: '10px' }}>
+            {admin.email || 'Loading...'}
+          </p>
+        </p>
+           {admin && admin.image ? (
         <img crossOrigin="anonymous" src={`${window.location.origin}${admin.image}`} alt="Admin Profile" />
       ) : (
         <PersonBadgeFill style={{ height: "90px", width: "100px" }} />
       )}
+      </div>
 
-      {/* Sidebar: mobile toggle visibility */}
-      <div className={`asideN ${showSidebar ? "showSidebar" : ""}`}>
         <div className="aside-links" onClick={e => e.stopPropagation()}>
-        <div className="closeBtWrap"><button className="closeAside" onClick={()=>{setShowSidebar(false)}}>X</button></div>
+        {/* <div className="closeBtWrap"><button className="closeAside" onClick={()=>{setShowSidebar(false)}}>X</button></div> */}
           <button className="asideLogouts" onClick={clickF}>
             Logout
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

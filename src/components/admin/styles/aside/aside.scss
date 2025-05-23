@@ -21,7 +21,7 @@ main::-webkit-scrollbar {
 
 .aside {
   position: fixed;
-  top: 3rem;
+  top: .5rem;
   left: 0;
   width: 220px;
   height: 100vh;
@@ -31,14 +31,30 @@ main::-webkit-scrollbar {
   flex-direction: column;
   justify-content: space-between;
   // box-shadow: 2px 0 6px rgba(0, 0, 0, 0.3);
+  // background-color: green;
   z-index: 1000;
+  
+
+
+  
+  .nameControl{
+    text-align: center;
+    margin: 8px 0;
+    img{
+      width: 50px;
+      height: 50px;
+      object-position: center;
+      border-radius: 50%;
+    }
+  }
+
 .asideLogout{
   display: none;
 }
   .aside-links {
     display: flex;
     flex-direction: column;
-    gap: .6rem;
+    gap: 3px;
   }
 
   a {
@@ -53,7 +69,7 @@ main::-webkit-scrollbar {
     border-radius: 5px;
     transition: all 0.3s ease;
     background: transparent;
-    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.671);
+    // box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.671);
     svg {
       min-width: 20px;
     }

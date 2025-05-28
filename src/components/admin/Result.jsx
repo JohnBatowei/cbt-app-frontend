@@ -124,7 +124,7 @@ const Result = () => {
                                             }}
 
                                             title="Corrections">
-                                         Corrections
+                                         Reviews
                                         </span>
                                         <span className='a'
                                             onClick={() => handleDeleteClassResults(classResults[0].classId,classResults[0].className)}

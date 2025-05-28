@@ -103,7 +103,7 @@ const ClassResultPageCorrection = () => {
                 placeholder="Search by name, profile code, or subject"
               />
             </span>
-            <h4>Class&nbsp;: {className} <small>(with corrections)</small></h4>
+            <h4>Class&nbsp;: {className} <small>(with exam reviews)</small></h4>
           </div>
 
           {classResults.length ? (
@@ -126,7 +126,7 @@ const ClassResultPageCorrection = () => {
                         <td>{r.profileCode}</td>
                         <td>{Math.round(r.totalScore)}</td>
                         <td><button className="but" onClick={() => toggleDetails(r._id)}>
-                          {detailsShown[r._id] ? "Hide Corrections" : "Show corrections"}
+                          {detailsShown[r._id] ? "Hide Reviews" : "Show Reviews"}
                         </button></td>
                       </tr>
 

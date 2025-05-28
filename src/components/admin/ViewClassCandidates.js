@@ -137,7 +137,7 @@ const ViewClassCandidates = () => {
                                     {classResults.map((result, index) => (
                                         <tr key={result._id}>
                                             <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                                            <td>{result.candidateName}</td>
+                                            <td style={{textTransform:'capitalize'}}>{result.candidateName}</td>
                                             <td>{result.profileCode}</td>
                                             <td className='subjectsScore'>
                                                 {result.subject.map(subject => `${subject.name}`).join(', ')}

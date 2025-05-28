@@ -149,25 +149,32 @@ const Student = () => {
     event.preventDefault();
   
     if (!selectedClass) {
-      setError("Oops please select a class !!!");
+      setError("Oops!!! please select a class");
       setSuccess('');
       // alert("Please select a class.");
       return;
     }
 
     if (selectedSubjects.length  < 1) {
-      setError("Oops no subject is selected !!!");
+      setError("Oops!!! Please select atleast a subject");
       setSuccess('');
       // console.log("Error: No subjects selected.");
       return;
     }
-  
-    if(selectedSubjects.length > 4){
-      setError("Oops please select only 4 subjects !!!");
-      setSuccess('');
-      // alert("Please select a class.");
-      return;
-    }
+  // return console.log(selectedClass.isBatched);
+ // Subject limit logic
+ if (!selectedClass.isBatched && selectedSubjects.length > 4) {
+  setError("You can only select up to 4 subjects for this class.");
+  setSuccess('');
+  return;
+}
+
+if (selectedClass.isBatched && selectedSubjects.length < 1) {
+  setError("You can only select 1 subject for a batched class.");
+  setSuccess('');
+  return;
+}
+
 
     const formData = new FormData();
     formData.append("classId", selectedClass._id);
@@ -421,8 +428,10 @@ const Student = () => {
               <tr>
                 <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                 <td>{item.className}</td>
-                <td>{item.candidateName}</td>
-                <td>{item.timer} Minutes</td>
+                <td style={{textTransform:'capitalize'}}>{item.candidateName}</td>
+                {/* <td>{item.timer} Minutes</td> */}
+                {item.timer == 0 && <td>Subject time base</td>}
+                {item.timer != 0 && <td>{item.timer} Minutes</td>}
                 <td>{item.profileCode}</td>
                 <td className="actions">
                   <button onClick={() => handleDelete(item._id)}>

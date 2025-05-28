@@ -47,8 +47,12 @@ body {
       button {
         display: flex;
         align-items: center;
-        background: red;
-        color: #ffffff;
+
+
+        border: 1px solid red;
+        background-color: #ffe6e6;
+        color: red;
+        cursor: pointer;
         font-weight: 500;
         padding: 12px 30px;
         border-radius: 30px;

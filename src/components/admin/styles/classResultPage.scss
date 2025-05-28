@@ -91,6 +91,28 @@
                 transition: all 0.2s ease-in-out;
               }
           }
+
+           tbody {
+          tr {
+            transition: background-color 0.2s ease;
+
+            &:hover {
+              background-color: rgba(40, 104, 106, 0.152);
+              
+              td {
+                background-color: rgba(40, 104, 106, 0.152);
+                color: #000000;
+              }
+            }
+
+            td {
+              padding: 0.75rem 1rem;
+              border: 1px solid #e5e5e5;
+              color: #444444;
+              font-size: 0.95rem;
+            }
+          }
+        }
       }
   }
 

@@ -54,6 +54,7 @@ const Setting = () => {
   const [changePasswrd,setChangePassword] = useState('')
   const [changeName,setChangeName] = useState('')
   const [selectedImage,setSelectedImage] = useState(null)
+  const [batchAwaitTime, setBatchAwaitTime] = useState('')
   const fileInputRef = useRef(null);
 
   const handleClick = () => {
@@ -297,6 +298,43 @@ const Setting = () => {
     }
   };
   
+  const handleChangeBatchAwaitTime = async (e) => {
+    e.preventDefault();
+    
+    const decision = window.confirm(`Click OK to change batch await timing else cancel`);
+    if (!decision)return;
+  
+    try {
+      const res = await axios.put('/change-batchAwaitTime', {
+        batchAwaitTime
+      },
+      {withCredentials: true})
+  
+      if (res.status === 200) {
+        alert(`${res.data.message} ${res.data.newName} minutes`);
+        
+      // Get the current admin from localStorage
+      const storedAdmin = JSON.parse(localStorage.getItem('admin'));
+
+      // Update the image path (adjust key depending on what backend sends)
+      const updatedAdmin = {
+        ...storedAdmin,
+        batchTiming: res.data.newName 
+      };
+
+      // Update localStorage
+      localStorage.setItem('admin', JSON.stringify(updatedAdmin));
+
+      // Update context
+      dispatch({ type: 'LOGIN', payload: updatedAdmin });
+        setBatchAwaitTime('')
+      }
+    } catch (error) {
+      console.error("Name failed to update", error);
+      alert("Failed to update profile name.");
+    }
+  };
+ 
   return (
     <div className="Setting">
       <Navbar clickF={handleClick} />
@@ -423,6 +461,21 @@ const Setting = () => {
               ref={fileInputRef}
               accept="image/*" 
               onChange={(e) => setSelectedImage(e.target.files[0])} 
+              required 
+            />
+            <button type="submit">Update</button>
+            </div>
+          </form>
+<br />
+            <form onSubmit={handleChangeBatchAwaitTime}>
+            {admin.batchTiming && <span>Set batch await time is {admin.batchTiming} minutes <ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></span>}
+            {!admin.batchTiming && <span>Set batch await time (Default is 15 minutes)  <ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></span>}
+            <div>
+            <input 
+             
+              type="number" 
+              value={batchAwaitTime}
+              onChange={(e) => setBatchAwaitTime(e.target.value)} 
               required 
             />
             <button type="submit">Update</button>

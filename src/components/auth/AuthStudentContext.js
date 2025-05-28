@@ -18,12 +18,14 @@ export const AuthContextProviderStudent = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, { student: null }); // Initial state with null student
 
   // Load student data from localStorage on mount
-  useEffect(() => {
-    const savedStudent = JSON.parse(localStorage.getItem('student'));
-    if (savedStudent) {
-      dispatch({ type: 'LOGIN', payload: savedStudent });
-    }
-  }, []); // This runs only on mount
+ useEffect(() => {
+  if (state.student) {
+    localStorage.setItem('student', JSON.stringify(state.student));
+  } else {
+    localStorage.removeItem('student');
+  }
+}, [state.student]);
+ // This runs only on mount
 
   // Sync state with localStorage on changes
   useEffect(() => {

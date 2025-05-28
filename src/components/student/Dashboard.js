@@ -13,7 +13,6 @@ const Dashboard = () => {
 
 
   // console.log('confirming data', student.image)
-  // console.log(student)
   // Logout handler
   const handleLogout = () => {
     logout();
@@ -54,7 +53,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="logout">
         <div className="wrap-logout">
-        <span>You have {student?.message?.timer} minutes for the entire exam</span>
+        <span>You have {student?.message?.timer} minutes for this exam</span>
         <button onClick={handleLogout} className="logout-button">
         Logout 
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">

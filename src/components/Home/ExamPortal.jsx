@@ -23,6 +23,10 @@ const ExamPortal = () => {
 
       if (res.status === 200) {
         // Update context and localStorage
+        if(res.data.wait === true){
+          return setError(res.data?.message || 'Unknown error');
+          // return alert(`${res.data.message}`)
+        }
         dispatch({ type: 'LOGIN', payload: res.data });
         localStorage.setItem('student', JSON.stringify(res.data));
         // Cookies.set('studentExamCookie', res.data.token)
@@ -33,7 +37,7 @@ const ExamPortal = () => {
         // Redirect to the dashboard
         history.push('/dashboard');
       } else {
-        setError(res.data.error || 'Unknown error');
+        setError(res.data.message || 'Unknown error');
       }
     } catch (error) {
       setError(error.response?.data?.error || error.message || 'An error occurred');

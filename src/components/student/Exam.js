@@ -23,7 +23,7 @@ const Exam = () => {
     const saveIntervalRef = useRef(null);
 
     const history = useHistory();
-    
+    // console.log(student);
 
     const showCalculator = () => {
         setCalc(prevCalc => !prevCalc);
@@ -31,7 +31,7 @@ const Exam = () => {
 
     const [resultConfirmation,setResultConfirmation] = useState('no')
 
-const getResultConfirmation = async () => {
+ const getResultConfirmation = async () => {
   try {
     // const res = await axios.get('http://localhost:3800/headings', {
     const res = await axiosSt.get('/headings', {
@@ -153,8 +153,6 @@ const handleSubmit = async () => {
         submissionInProgress.current = false;
     }
 };
-
-
 
 
     useEffect(() => {

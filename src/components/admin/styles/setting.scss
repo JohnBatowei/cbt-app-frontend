@@ -92,6 +92,15 @@ $border-radius: 5px;
   }
 }
 
+.batch-setting{
+  font-size: 1rem;
+  // margin-bottom: 1rem;
+  font-weight: 500;
+  color: #ececec;
+  i{
+    color: $primary-color;
+  }
+}
 
 
 .second {
@@ -127,6 +136,8 @@ $border-radius: 5px;
       color: #ececec;
       // background-color: yellow;
     }
+    
+   
 
     form {
       display: flex;

@@ -56,7 +56,7 @@ const Setting = () => {
   const [selectedImage,setSelectedImage] = useState(null)
   const [batchAwaitTime, setBatchAwaitTime] = useState('')
   const fileInputRef = useRef(null);
-
+  const [getBatchAwaitTime, setGetBatchAwaitTime] = useState('')
   const handleClick = () => {
     logout();
     history.push("/cordportal");
@@ -65,6 +65,35 @@ const Setting = () => {
   const handleError = () => {
     setMessage({ type: "", content: "" });
   };
+
+  const fetchBatchAwaitTime = useCallback(async () => {
+    try {
+      const res = await axios.get("/batchAwaitTime", { withCredentials: true });
+      if (res.status === 200) {
+        setGetBatchAwaitTime(res.data.data)
+        console.log(res.data.data.batchAwaitTime);
+              // Get the current admin from localStorage
+      const storedAdmin = JSON.parse(localStorage.getItem('admin'));
+
+      // Update the image path (adjust key depending on what backend sends)
+      const updatedAdmin = {
+        ...storedAdmin,
+        batchTiming: res.data.data.batchAwaitTime 
+      };
+
+      // Update localStorage
+      localStorage.setItem('admin', JSON.stringify(updatedAdmin));
+
+      // Update context
+      dispatch({ type: 'LOGIN', payload: updatedAdmin });
+        setBatchAwaitTime('')
+      }
+      
+    } catch (error) {
+      console.error("Error fetching headers", error);
+    }
+  }, []);
+
 
   const fetchHeaders = useCallback(async () => {
     try {
@@ -96,9 +125,12 @@ const Setting = () => {
     }
   }, []);
 
+
   useEffect(() => {
+    fetchBatchAwaitTime();
     fetchHeaders();
-  }, [fetchHeaders]);
+  }, [fetchHeaders,fetchBatchAwaitTime]);
+
 
   const handleHeaderChange = async (type, headerValue) => {
     if (!headerValue) {
@@ -468,7 +500,7 @@ const Setting = () => {
           </form>
 <br />
             <form onSubmit={handleChangeBatchAwaitTime}>
-            {admin.batchTiming && <span>Set batch await time is {admin.batchTiming} minutes <ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></span>}
+            {admin.batchTiming && <p className="batch-setting">Current batch await time is <i>{admin.batchTiming}</i>  minutes <br /> You can reset batch await timing below<ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></p>}
             {!admin.batchTiming && <span>Set batch await time (Default is 15 minutes)  <ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></span>}
             <div>
             <input 

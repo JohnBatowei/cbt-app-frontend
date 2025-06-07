@@ -48,12 +48,16 @@ $radius: 12px;
     // background: rgb(255, 255, 255);
     color: #dbdada;
     padding: 10px 20px;
+    border: 2px solid rgba(50, 50, 50, 0.163);
     border-left: 6px solid $yellow;
     border-right: 6px solid $yellow;
     border-radius: $radius;
     font-size: 1rem;
     // box-shadow: $shadow;
     width: 70%;
+    height: 2rem;
+    display: flex;
+    align-items: center;
   }
 
   .ExamCord {

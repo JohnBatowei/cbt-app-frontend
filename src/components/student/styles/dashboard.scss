@@ -42,7 +42,8 @@ body {
 
       background: linear-gradient(135deg, #52299c, #6e3bcf);
       padding: 12px 30px;
-      border-radius: 10px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
       box-shadow: 0 4px 12px rgba(82, 41, 156, 0.3);
       button {
         display: flex;

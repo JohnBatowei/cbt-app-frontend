@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useLogout } from "../../hooks/studentLogout";
-import { useAuthContextStudent } from "../../hooks/useAuthStudentCon";
+// import { useAuthContextStudent } from "../../hooks/useAuthStudentCon";
 import './styles/dashboard.scss'
 // import icon from '../../assets/'
 
@@ -8,10 +8,10 @@ import './styles/dashboard.scss'
 const Dashboard = () => {
   // const { logout } = useLogout();
   const history = useHistory();
-  const { student } = useAuthContextStudent();
+  // const { student } = useAuthContextStudent();
   const { logout } = useLogout();
 
-
+const student = JSON.parse(localStorage.getItem('student'))
   // console.log('confirming data', student.image)
   // Logout handler
   const handleLogout = () => {
@@ -70,17 +70,31 @@ const Dashboard = () => {
       <section>
         <div className="sub-parent-wrapper">
           <div className="left">
-            <h3>Subjects</h3>
+            <h3>{student?.message?.isBatched && 'Current Subject'}</h3>
+            <h3>{!student?.message?.isBatched && 'Subjects'}</h3>
             <div className="subject">
               {student?.message?.subject?.length > 0 ? (
                 student.message.subject.map((item, index) => (
                   <div key={item._id || index} className="subjects">
-                    <label>{index + 1},</label> <span>{item.name}</span>
+                  <label>{index + 1},</label> <span>{item.name}</span>
                   </div>
                 ))
               ) : (
                 <p>No subjects available</p>
               )}
+              
+            </div>
+            <div className="subject">
+            <br />
+            <h4>{student?.message?.isBatched && 'All Subjects'}</h4>
+              {student?.message?.isBatched  && (
+                student.message.subjectNames.map((item, index) => (
+                  <div key={item._id || index} className="subjects">
+                  <label>{index + 1},</label> <span>{item}</span>
+                  </div>
+                ))
+              ) }
+
             </div>
           </div>
 

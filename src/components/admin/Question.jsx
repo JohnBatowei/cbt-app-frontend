@@ -102,6 +102,7 @@ const Question = () => {
                     <th>OptionA</th>
                     <th>OptionB</th>
                     <th>OptionC</th>
+                    <th>OptionD</th>
                     <th>Answers</th>
                   </tr>
                 </thead>
@@ -113,6 +114,7 @@ const Question = () => {
                     <th>OptionA</th>
                     <th>OptionB</th>
                     <th>OptionC</th>
+                    <th>OptionD</th>
                     <th>Answers</th>
                   </tr>
                 </tfoot>
@@ -125,6 +127,7 @@ const Question = () => {
                       <td><div dangerouslySetInnerHTML={{ __html: item.optionA }}></div></td>
                       <td><div dangerouslySetInnerHTML={{ __html: item.optionB }}></div></td>
                       <td><div dangerouslySetInnerHTML={{ __html: item.optionC }}></div></td>
+                      <td><div dangerouslySetInnerHTML={{ __html: item.optionD }}></div></td>
                       <td style={{ textTransform: "uppercase" }}>{item.answer}</td>
                     </tr>
                   ))}

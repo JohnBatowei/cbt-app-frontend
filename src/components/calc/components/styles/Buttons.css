@@ -43,10 +43,10 @@
   font-weight: 500;
   cursor: pointer;
   border-radius: 50%;
-  background: none;
+  /* background: none; */
   border: 0px;
   /* user-select: none; */
-  /* background-color: yellow; */
+  background-color: yellow;
 }
 
 @media (min-width: 800px) {

@@ -8,8 +8,11 @@
     min-height: 100vh;
     background-color: #f0f0f0; // Light grey background to match the UI.
 button{
-    background-color: red;
+    background-color: rgba(0, 0, 0, 0.808);
     color: whitesmoke;
+}
+.clr,.exp{
+    background-color: rgb(255, 0, 51);
 }
 .prev-btn,.next-btn{
     background: rgb(0, 0, 0);
@@ -30,11 +33,12 @@ button{
         width: 50px; height: 50px;cursor: pointer;
     }
 
+
 .calculatorDisplay{
     // background-color: red;
     position: absolute; 
     top: 0;
-    left: 0;
+    right: 0;
     width: 0;
     height: 100vh;
     overflow: hidden;
@@ -306,4 +310,55 @@ button{
 }
 
 
+  @media (max-width: 760px){
+    header {
+        display: flex;
+        flex-direction: column;
+
+
+        .top-header {
+           flex-wrap: wrap;
+        }
+
+        .bottom-header {
+            flex-wrap: wrap;
+
+            .subjests-warapper {
+               flex-wrap: wrap;
+            }
+        }
+
+    }
+    
+    .options{
+        color: rgb(179, 0, 255);
+        label{
+            color: rgb(0, 255, 251);
+        }
+    }
+
+
+    footer {       
+        .questions-list{
+            // background-color: red;
+            width: 100%;
+            overflow-x: hidden;
+            .questions-list {
+            grid-template-columns: 1fr;
+            gap: 10px;
+            .prev-btn,
+            .next-btn {
+              width: 100%;
+            //   max-width: 300px;
+              margin: 0 auto;
+            }
+      
+            .question-item-div {
+              grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
+              justify-items: center;
+            }
+        }
+          }
+        }
+    }
   

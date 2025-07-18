@@ -87,13 +87,20 @@ const student = JSON.parse(localStorage.getItem('student'))
             <div className="subject">
             <br />
             <h4>{student?.message?.isBatched && 'All Subjects'}</h4>
-              {student?.message?.isBatched  && (
-                student.message.subjectNames.map((item, index) => (
-                  <div key={item._id || index} className="subjects">
-                  <label>{index + 1},</label> <span>{item}</span>
-                  </div>
-                ))
-              ) }
+            {student?.message?.isBatched && (
+            student.message.getSubjectStatus.map((item, index) => (
+            <div key={index} className="subjects" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <label>{index + 1}.</label>
+              <span>{item.subjectNames}</span>
+              {item.isComplete ? (
+                <span style={{ color: 'green', fontWeight: 'bold' }}>✔</span> // Green check mark
+              ) : (
+                <span style={{ color: 'grey', fontSize: '20px' }}>•</span> // Grey dot
+              )}
+            </div>
+      ))
+    )}
+
 
             </div>
           </div>
@@ -130,7 +137,7 @@ const student = JSON.parse(localStorage.getItem('student'))
       </section>
 
       <footer>
-        <p>All rights reserved | AriTron LTD @2025</p>
+        <p>All rights reserved | <a href="https://www.aritron.com.ng">www.AriTron.com.ng</a> @ {new Date().getFullYear()}</p>
       </footer>
     </div>
     </div>

@@ -292,6 +292,7 @@ const Subject = props => {
         optionA: "",
         optionB: "",
         optionC: "",
+        optionD: "",
         answer: "",
         // Add other fields as needed...
       };
@@ -332,6 +333,21 @@ const Subject = props => {
     
 
     const handleProductOptionC = (index, field, value) => {
+      if (!productStates[index]) {
+        const updatedProductStates = [...productStates];
+        updatedProductStates[index] = initializeProductState();
+        setProductStates(updatedProductStates);
+      }
+    
+      const updatedProductStates = [...productStates];
+      updatedProductStates[index] = {
+        ...updatedProductStates[index],
+        [field]: value, // ✅ Using the raw HTML string directly — correct
+      };
+      setProductStates(updatedProductStates);
+    };
+
+    const handleProductOptionD = (index, field, value) => {
       if (!productStates[index]) {
         const updatedProductStates = [...productStates];
         updatedProductStates[index] = initializeProductState();
@@ -412,14 +428,14 @@ const Subject = props => {
       return;
     }
   
-    let { question, optionA, optionB, optionC, answer} = productStates[index];
+    let { question, optionA, optionB, optionC, optionD, answer} = productStates[index];
     
     // console.log(productStates[index]);
     // console.log(fileInput);
     // console.log(subjectId);
 
 
-      if (!answer || !question || !optionA || !optionB || !optionC) {
+      if (!answer || !question || !optionA || !optionB || !optionC || !optionD) {
         setEe("Please fill in all the required fields");
         // setErrorMessage("Please fill in all the required fields");
         setSuccessMessage("");
@@ -429,8 +445,8 @@ const Subject = props => {
 
         // Validate answer
   const trimmedAnswer = answer.trim();
-  if (trimmedAnswer.length !== 1 || !['a', 'b', 'c'].includes(trimmedAnswer.toLowerCase()) || !isNaN(trimmedAnswer)) {
-    setEe("Answer must be a single letter (a, b, or c) and not a number.");
+  if (trimmedAnswer.length !== 1 || !['a', 'b', 'c', 'd'].includes(trimmedAnswer.toLowerCase()) || !isNaN(trimmedAnswer)) {
+    setEe("Answer must be a single letter (a, b, c, or d) and not a number.");
     setSuccessMessage("");
     setSs("");
     return;
@@ -447,6 +463,7 @@ const Subject = props => {
         formData.append("optionA", optionA);
         formData.append("optionB", optionB);
         formData.append("optionC", optionC);
+        formData.append("optionD", optionD);
         formData.append("answer", trimmedAnswer);
   
         // alert(storeId+'  , '+productName+' , '+amount+' , '+discountPercentage+' , '+discAmount+' , '+discounted+' , '+quantity+' , '+productType)
@@ -470,6 +487,7 @@ const Subject = props => {
             productStates[index].optionA = ""
             productStates[index].optionB = ""
             productStates[index].optionC = ""
+            productStates[index].optionD = ""
             productStates[index].answer = ""
             setFileInput(null)
               // Clear actual file input element
@@ -515,6 +533,7 @@ const Subject = props => {
       optionA: product.optionA,
       optionB: product.optionB,
       optionC: product.optionC,
+      optionD: product.optionD,
       answer: product.answer,
       // Add other fields as needed...
     };
@@ -571,11 +590,11 @@ const Subject = props => {
   const handleProductUpdate = async (event, productID) => {
     event.preventDefault();
 
-    const { question, optionA, optionB, optionC, answer } = productEditStates[productID];
+    const { question, optionA, optionB, optionC, optionD, answer } = productEditStates[productID];
 
     // return console.log(productEditStates[productID] , imageUpdate[productID])
 
-    if (!answer || !question || !optionA || !optionB || !optionC) {
+    if (!answer || !question || !optionA || !optionB || !optionC || !optionD) {
       setEe("Please fill in all the required fields");
       setSuccessMessage("");
       setSs("");
@@ -585,7 +604,7 @@ const Subject = props => {
     }
 
     const trimmedAnswer = answer.trim().toLowerCase();
-    if (!['a', 'b', 'c'].includes(trimmedAnswer)) {
+    if (!['a', 'b', 'c','d'].includes(trimmedAnswer)) {
       setEe("Answer must be a single letter (a, b, or c) and not a number.");
     setSuccessMessage("");
     setSs("");
@@ -599,6 +618,7 @@ const Subject = props => {
     formData.append("optionA", optionA);
     formData.append("optionB", optionB);
     formData.append("optionC", optionC);
+    formData.append("optionD", optionD);
     formData.append("answer", trimmedAnswer);
 
     if (imageUpdate[productID]) {
@@ -879,9 +899,31 @@ const Subject = props => {
 
                               <div className="pName">
                                 <label className='_label'>
+                                Option D :
+                                </label>
+                              {/* <textarea id="" cols="72" rows="2" placeholder='Type in option C'  
+                               value={productStates[index]?.optionC || ""}
+                               onChange={(e) => handleProductOptionC(index, 'optionC', e.target.value)}
+                              required></textarea> */}
+
+                                {/* <input type="text" style={{ zIndex: 9999, position: 'relative' }} /> */}
+                            <div className="richTextArea">
+                            <ReactQuill
+                                theme="snow"
+                                value={productStates[index]?.optionD || ""}
+                                onChange={(value) => handleProductOptionD(index, 'optionD', value)}
+                                placeholder="Type in option D"
+                                style={{ height: "70px", marginBottom: "50px", color: 'black' }} 
+                              />
+
+                            </div>
+                              </div>
+
+                              <div className="pName">
+                                <label className='_label'>
                                 Correct answer Option :
                                 </label>
-                              <textarea id="" cols="72" rows="2" placeholder='Type in the correct answer from the options. Example  "a" or "A", "b" or "B", "c" or "C"'  
+                              <textarea id="" cols="72" rows="2" placeholder='Type in the correct answer from the options. Example  "a" or "A", "b" or "B", "c" or "D"'  
                                value={productStates[index]?.answer || ""}
                                onChange={(e) => handleProductAnswer(index, 'answer', e.target.value)}
                               required style={{ zIndex: 9999, position: 'relative' }}></textarea>
@@ -1110,6 +1152,28 @@ const Subject = props => {
                                                 theme="snow"
                                                 value={productEditStates[product.questionId]?.optionC || ''}
                                                 onChange={(value) => handleEditField(product.questionId, 'optionC', value)}
+                                                placeholder="Type in question here"
+                                                style={{
+                                                  background: "white",
+                                                  color: "black",
+                                                  width: "100%",
+                                                  margin: "0 0 2rem 0",
+                                                  height: "240px",
+                                                  // border: "4px solid red",
+                                                  // overflowY: "auto",  // Ensure scroll is handled
+                                                }}
+                                              />
+                                     </div>
+                                      </div>
+                                      <div className="editable">
+                                           <span>Option D :</span>
+  
+
+                                          <div className="richTextArea" style={{background:"white",height: "70px",width:'85%', borderRadius:'5px'}}>
+                                     <ReactQuill
+                                                theme="snow"
+                                                value={productEditStates[product.questionId]?.optionD || ''}
+                                                onChange={(value) => handleEditField(product.questionId, 'optionD', value)}
                                                 placeholder="Type in question here"
                                                 style={{
                                                   background: "white",

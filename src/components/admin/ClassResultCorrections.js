@@ -110,7 +110,7 @@ const ClassResultPageCorrection = () => {
             <>
               <p className="nomOfStudent">Number of students : <span>{totalCount}</span></p>
 
-              <table className="table table-bordered" border={1}>
+              <table className="table table-striped " border={1}>
                 <thead>
                   <tr>
                     <th>S/N</th><th>Student Name</th><th>Profile Code</th><th>Total Score</th><th>Action</th>

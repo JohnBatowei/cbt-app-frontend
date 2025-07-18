@@ -4,7 +4,7 @@ import Buttons from "./Buttons";
 import "./styles/Calculator.css";
 import { evaluate, round } from "mathjs";
 
-function Calculator() {
+function Calculator({setCalc}) {
   const [input, setInput] = useState("");
   const [answer, setAnswer] = useState("");
 
@@ -133,6 +133,7 @@ function Calculator() {
   return (
     <>
       <div className="container-main">
+      <h1 onClick={()=>setCalc(prev => !prev)}>X</h1>
         <div className="main-main">
           <Display input={input} setInput={setInput} answer={answer} />
           <Buttons

@@ -103,7 +103,8 @@ const handleSubmit = async () => {
             question: question.question,
             option_A : question.option_A,
             option_B: question.option_B,
-            option_C : question.option_C
+            option_C : question.option_C,
+            option_D : question.option_D
 
         }));
         return {
@@ -313,7 +314,7 @@ const handleSubmit = async () => {
             const key = event.key.toLowerCase();
     
             // Option selection
-            if (['a', 'b', 'c'].includes(key)) {
+            if (['a', 'b', 'c', 'd'].includes(key)) {
                 const updatedOption = {
                     ...selectedOptionRef.current,
                     [activeQuestion._id]: key
@@ -398,7 +399,7 @@ const handleSubmit = async () => {
                     <span className='name'> <div className="img">  {imgValidator()} </div> {student?.message?.candidateName}</span>
                     <span className='calcImg' onClick={showCalculator}><img src={calcImg} alt="" className='calcImg' /></span>
                     <div className={`calculatorDisplay ${calc === true ? 'showCalcNow' : ''}`}>
-                        {calc && <Calculator />}
+                        {calc && <Calculator setCalc={setCalc}/>}
                     </div>
                     <button onClick={handleSubmit} className='submit'>Submit</button>
                 </div>
@@ -494,6 +495,18 @@ const handleSubmit = async () => {
                                             {/* <span>{activeQuestion.option_C}</span> */}
                                             <span dangerouslySetInnerHTML={{ __html: activeQuestion.option_C }} />
                                         </label>
+                                        <label>
+                                            <span>D </span>
+                                            <input
+                                                type="radio"
+                                                name={`question-${activeQuestion._id}`}
+                                                value="d"
+                                                checked={selectedOption[activeQuestion._id] === 'd'}
+                                                onChange={handleOptionChange}
+                                            />
+                                            {/* <span>{activeQuestion.option_C}</span> */}
+                                            <span dangerouslySetInnerHTML={{ __html: activeQuestion.option_D }} />
+                                        </label>
                                     </>
                                 ) : (
                                     <p>No options available</p>
@@ -515,6 +528,7 @@ const handleSubmit = async () => {
                 >
                     Prev
                 </button>
+
                     <div className="question-item-div">
                     {activeSubject?.questions.map((_, index) => {
                         const isAnswered = selectedOption[activeSubject.questions[index]?._id];
@@ -530,7 +544,7 @@ const handleSubmit = async () => {
                     })}
                     </div>
 
-                                    <button 
+                    <button 
                     className="next-btn"
                     onClick={handleNextQuestion}
                     disabled={

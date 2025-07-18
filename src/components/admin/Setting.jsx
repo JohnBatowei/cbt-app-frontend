@@ -8,6 +8,7 @@ import axios from "./Axios";
 import { X,ArrowRight, ArrowDownCircleFill} from "react-bootstrap-icons";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
+
 // Reusable component for handling header changes
 const HeaderChangeForm = ({
   title,
@@ -18,14 +19,15 @@ const HeaderChangeForm = ({
 }) => (
   <div className="header-section">
     <div>
-      <span>Default {title} is <ArrowRight size={18} style={{ marginLeft: "6px" }} /> </span> <h2>{currentHeader}</h2>
+      <span>{title} is <ArrowRight size={18} style={{ marginLeft: "6px" }} /> </span> <h2>{currentHeader}</h2>
     </div>
     <p>
-      <span>You can change the default heading with the input field below <ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></span>
+      {/* <span>You can  with the input field below <ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></span> */}
       <form onSubmit={onSubmit}>
         <input
           type="text"
           value={headerValue}
+          placeholder={`Change heading ${currentHeader}`}
           onChange={(e) => setHeaderValue(e.target.value)}
         />
         <button>Update</button>
@@ -55,8 +57,9 @@ const Setting = () => {
   const [changeName,setChangeName] = useState('')
   const [selectedImage,setSelectedImage] = useState(null)
   const [batchAwaitTime, setBatchAwaitTime] = useState('')
+  const [numberOfQuestions, setNumberOfQuestions] = useState('')
   const fileInputRef = useRef(null);
-  const [getBatchAwaitTime, setGetBatchAwaitTime] = useState('')
+  // const [getBatchAwaitTime, setGetBatchAwaitTime] = useState('')
   const handleClick = () => {
     logout();
     history.push("/cordportal");
@@ -69,30 +72,30 @@ const Setting = () => {
   const fetchBatchAwaitTime = useCallback(async () => {
     try {
       const res = await axios.get("/batchAwaitTime", { withCredentials: true });
+  
       if (res.status === 200) {
-        setGetBatchAwaitTime(res.data.data)
-        console.log(res.data.data.batchAwaitTime);
-              // Get the current admin from localStorage
-      const storedAdmin = JSON.parse(localStorage.getItem('admin'));
-
-      // Update the image path (adjust key depending on what backend sends)
-      const updatedAdmin = {
-        ...storedAdmin,
-        batchTiming: res.data.data.batchAwaitTime 
-      };
-
-      // Update localStorage
-      localStorage.setItem('admin', JSON.stringify(updatedAdmin));
-
-      // Update context
-      dispatch({ type: 'LOGIN', payload: updatedAdmin });
-        setBatchAwaitTime('')
+        const batchAwaitTime = res?.data?.data?.batchAwaitTime ?? null;
+        const numberOfQues = res?.data?.numOfQuest?.numberOfQuestionPerSubject ?? null;
+  
+        const storedAdmin = JSON.parse(localStorage.getItem('admin')) || {};
+  
+        const updatedAdmin = {
+          ...storedAdmin,
+          ...(batchAwaitTime && { batchTiming: batchAwaitTime }),
+          ...(numberOfQues && { numberOfQues }), // Only add if not null
+        };
+  
+        localStorage.setItem('admin', JSON.stringify(updatedAdmin));
+        dispatch({ type: 'LOGIN', payload: updatedAdmin });
+  
+        // For UI update if needed
+        // if (batchAwaitTime) setGetBatchAwaitTime(batchAwaitTime);
       }
-      
     } catch (error) {
-      console.error("Error fetching headers", error);
+      console.error("Error fetching batch await time:", error);
     }
   }, []);
+  
 
 
   const fetchHeaders = useCallback(async () => {
@@ -231,7 +234,7 @@ const Setting = () => {
         const res = await axios.put('/change-password', {
           email: admin.email,
           newPassword: changePasswrd
-        });
+        },{ withCredentials: true });
   
         if (res.status === 200) {
           setChangePassword('');
@@ -263,7 +266,7 @@ const Setting = () => {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      });
+      },{ withCredentials: true });
   
       if (res.status === 200) {
         alert(res.data.message);
@@ -303,7 +306,7 @@ const Setting = () => {
     }
   
     try {
-      const res = await axios.put('/name-change', {name: changeName});
+      const res = await axios.put('/name-change', {name: changeName},{ withCredentials: true });
   
       if (res.status === 200) {
         alert(res.data.message);
@@ -367,6 +370,46 @@ const Setting = () => {
     }
   };
  
+
+  const handleNumberOfQuestions = async (e) => {
+    e.preventDefault();
+    
+    const decision = window.confirm(`Click OK to set number of questions per subjects`);
+    if (!decision)return;
+    if (isNaN(numberOfQuestions) || numberOfQuestions <1)return;
+  
+    try {
+      const res = await axios.put('/number-of-questions', {
+        numberOfQuestionPerSubject: numberOfQuestions
+      },
+      {withCredentials: true})
+  
+      if (res.status === 200) {
+        alert(`${res.data.message} ${res.data.newNumQuest} minutes`);
+        
+      // Get the current admin from localStorage
+      const storedAdmin = JSON.parse(localStorage.getItem('admin'));
+
+      // Update the image path (adjust key depending on what backend sends)
+      const updatedAdmin = {
+        ...storedAdmin,
+        numberOfQues: res.data.newNumQuest 
+      };
+
+      // Update localStorage
+      localStorage.setItem('admin', JSON.stringify(updatedAdmin));
+
+      // Update context
+      dispatch({ type: 'LOGIN', payload: updatedAdmin });
+        setBatchAwaitTime('')
+      }
+    } catch (error) {
+      console.error("Name failed to update", error);
+      alert("Failed to update profile name.");
+    }
+  };
+
+
   return (
     <div className="Setting">
       <Navbar clickF={handleClick} />
@@ -469,7 +512,7 @@ const Setting = () => {
             <form onSubmit={handleNameChange}>
             <span>Update profile name<ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></span>
             <div>
-            <input type="text" minLength={6} value={changeName} onChange={(e)=>setChangeName(e.target.value)} required/>
+            <input type="text" minLength={6} value={changeName} onChange={(e)=>setChangeName(e.target.value)} placeholder={`${admin?.name}`} required/>
             <button>Update</button>
             </div>
             </form>
@@ -477,7 +520,7 @@ const Setting = () => {
             <form onSubmit={handleChangePassword}>
             <span>Update password below <ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></span>
             <div>
-            <input type="text" minLength={6} value={changePasswrd} onChange={(e)=>setChangePassword(e.target.value)} required/>
+            <input type="text" minLength={6} value={changePasswrd} onChange={(e)=>setChangePassword(e.target.value)} placeholder="Type in new password" required/>
             <button>Update</button>
             </div>
             </form>
@@ -500,7 +543,7 @@ const Setting = () => {
           </form>
 <br />
             <form onSubmit={handleChangeBatchAwaitTime}>
-            {admin.batchTiming && <p className="batch-setting">Current batch await time is <i>{admin.batchTiming}</i>  minutes <br /> You can reset batch await timing below<ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></p>}
+            {admin.batchTiming && <p className="batch-setting">Current batch await time is <i>{admin.batchTiming}</i>  minutes </p>}
             {!admin.batchTiming && <span>Set batch await time (Default is 15 minutes)  <ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></span>}
             <div>
             <input 
@@ -508,6 +551,23 @@ const Setting = () => {
               type="number" 
               value={batchAwaitTime}
               onChange={(e) => setBatchAwaitTime(e.target.value)} 
+              placeholder="Set await time  "
+              required 
+            />
+            <button type="submit">Update</button>
+            </div>
+          </form>
+<br />
+            <form onSubmit={handleNumberOfQuestions}>
+            {admin.numberOfQues && <p className="batch-setting">Number of questions <i>{admin.numberOfQues}</i>/subject  <ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></p>}
+            {!admin.numberOfQues && <span>Number of questions by default is 50/subjects <ArrowDownCircleFill size={18} style={{ marginLeft: "6px" }} /></span>}
+            <div>
+            <input 
+             
+              type="number" 
+              value={numberOfQuestions}
+              onChange={(e) => setNumberOfQuestions(e.target.value)} 
+              placeholder="Set the number of questions per subject"
               required 
             />
             <button type="submit">Update</button>

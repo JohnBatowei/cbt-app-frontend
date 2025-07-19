@@ -14,11 +14,13 @@
   left: 0;
   padding: 10px 20px;
   cursor: pointer;
+  background-color: #de083a;
   /* background-color: black; */
   /* border-radius: 5px; */
 }
 .container-main h1:hover{
-  background-color: #111c79;
+  background-color: #ffffff;
+  color: black;
   /* color: rgb(242, 248, 255); */
 }
 .main-main {

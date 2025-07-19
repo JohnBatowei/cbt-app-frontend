@@ -405,7 +405,7 @@ const handleSubmit = async () => {
                 </div>
 
                 <div className="bottom-header">
-                    <p>Profile Code : {student?.message?.profileCode}</p>
+                    <p>{student?.message?.profileCode}</p>
 
                     <div className='subjests-warapper'>
                         {/* {student?.message?.subject?.length > 0 ? (
@@ -520,9 +520,28 @@ const handleSubmit = async () => {
             </section>
 
             <footer>
+            <div className="pn">
+            <button 
+                    className="prev-btn"
+                    onClick={handlePreviousQuestion}
+                    disabled={activeSubjectIndex === 0 && activeQuestionIndex === 0}
+                >
+                    Prev
+                </button>
+            <button 
+                    className="next-btn"
+                    onClick={handleNextQuestion}
+                    disabled={
+                        activeSubjectIndex === student.message.subject.length - 1 &&
+                        activeQuestionIndex === activeSubject?.questions.length - 1
+                    }
+                >
+                    Next
+                </button>
+            </div>
                 <div className="questions-list">
                 <button 
-                    className="prev-btn"
+                    className="prev-btn pnn"
                     onClick={handlePreviousQuestion}
                     disabled={activeSubjectIndex === 0 && activeQuestionIndex === 0}
                 >
@@ -545,7 +564,7 @@ const handleSubmit = async () => {
                     </div>
 
                     <button 
-                    className="next-btn"
+                    className="next-btn pnn"
                     onClick={handleNextQuestion}
                     disabled={
                         activeSubjectIndex === student.message.subject.length - 1 &&
